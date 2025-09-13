@@ -11,10 +11,10 @@ public class Spawner : MonoBehaviour
 
     public void Spawn(Capsule capsule, Vector3 position)
     {
-        float rotateAngle = 360f;
+        float rotationAngle = 360f;
 
         capsule.transform.position = position;
-        capsule.transform.rotation = Quaternion.Euler(0, Random.Range(0, rotateAngle), 0);
+        capsule.transform.rotation = Quaternion.Euler(0, Random.Range(0, rotationAngle), 0);
         capsule.gameObject.SetActive(true);
     }
 }
