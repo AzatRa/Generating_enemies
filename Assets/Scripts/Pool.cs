@@ -3,30 +3,30 @@ using UnityEngine.Pool;
 
 public class Pool : MonoBehaviour
 {
-    [SerializeField] private Capsule _prefab;
+    [SerializeField] private Enemy _prefab;
     [SerializeField] private int _poolCapasity = 50;
     [SerializeField] private int _poolMaxSize = 100;
 
-    private ObjectPool<Capsule> _pool;
+    private ObjectPool<Enemy> _pool;
 
     private void Awake()
     {
-        _pool = new ObjectPool<Capsule>(
+        _pool = new ObjectPool<Enemy>(
             createFunc: () => Instantiate(_prefab),
             actionOnGet: (obj) => obj.gameObject.SetActive(true),
             actionOnRelease: (obj) => obj.gameObject.SetActive(false),
-            actionOnDestroy: (obj) => Destroy(obj),
+            actionOnDestroy: (obj) => Destroy(gameObject),
             collectionCheck: true,
             defaultCapacity: _poolCapasity,
             maxSize: _poolMaxSize);
     }
 
-    public Capsule Get()
+    public Enemy Get()
     {
         return _pool.Get();
     }
 
-    public void Release(Capsule obj)
+    public void Release(Enemy obj)
     {
         _pool.Release(obj);
     }

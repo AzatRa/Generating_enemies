@@ -9,12 +9,12 @@ public class Spawner : MonoBehaviour
         _pool = GetComponent<Pool>();
     }
 
-    public void Spawn(Capsule capsule, Vector3 position)
+    public void Spawn(Enemy enemy, Vector3 position)
     {
         float rotationAngle = 360f;
 
-        capsule.transform.position = position;
-        capsule.transform.rotation = Quaternion.Euler(0, Random.Range(0, rotationAngle), 0);
-        capsule.gameObject.SetActive(true);
+        enemy.transform.position = position;
+        enemy.transform.rotation = Quaternion.Euler(0, Random.Range(0, rotationAngle), 0);
+        enemy.gameObject.SetActive(true);
     }
 }

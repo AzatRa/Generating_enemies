@@ -2,11 +2,19 @@ using System;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
-public class Capsule : MonoBehaviour
+[RequireComponent (typeof(Renderer))]
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
+    private Renderer _renderer;
 
-    public event Action<Capsule> OnWallCollision;
+    public event Action<Enemy> CollidedWithWall;
+    public Renderer Renderer => _renderer;
+
+    private void Awake()
+    {
+        _renderer = GetComponent<Renderer>();
+    }
 
     private void Update()
     {
@@ -17,7 +25,7 @@ public class Capsule : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Wall>(out _))
         {
-            OnWallCollision?.Invoke(this);
+            CollidedWithWall?.Invoke(this);
         }
     }
 }

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ColorChanger : MonoBehaviour
 {
-    public void Change(Capsule capsule)
+    public void Change(Enemy enemy)
     {
-        capsule.GetComponent<Renderer>().material.color = new Color(Random.value, Random.value, Random.value);
+        enemy.Renderer.material.color = new Color(Random.value, Random.value, Random.value);
     }
 }
