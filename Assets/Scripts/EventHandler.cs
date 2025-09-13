@@ -13,7 +13,7 @@ public class EventHandler : MonoBehaviour
     [SerializeField] private float _spawnInterval = 2f;
     
     private float _timer;
-    private List<Spawner> _spawners = new List<Spawner>();
+    private List<Spawner> _spawners = new();
 
     private void Start()
     {
