@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawnManager : MonoBehaviour
+public class EnemySpawn : MonoBehaviour
 {
     [SerializeField] private List<Spawner> _spawners = new();
     [SerializeField] private float _spawnInterval = 2f;

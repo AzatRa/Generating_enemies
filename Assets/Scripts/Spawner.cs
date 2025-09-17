@@ -1,16 +1,25 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Pool _pool;
     [SerializeField] private ColorChanger _colorChanger;
+    [SerializeField] private Enemy _prefab;
+    [SerializeField] private int _poolCapasity = 50;
+    [SerializeField] private int _poolMaxSize = 100;
+
+    private ObjectPool<Enemy> _pool;
 
     private void Awake()
     {
-        if (_pool == null)
-            Debug.LogError($"{nameof(_pool)} не назначен в {gameObject.name}");
-        if (_colorChanger == null)
-            Debug.LogError($"{nameof(_colorChanger)} не назначен в {gameObject.name}");
+        _pool = new ObjectPool<Enemy>(
+            createFunc: () => Instantiate(_prefab),
+            actionOnGet: (obj) => obj.gameObject.SetActive(true),
+            actionOnRelease: (obj) => obj.gameObject.SetActive(false),
+            actionOnDestroy: (obj) => Destroy(obj.gameObject),
+            collectionCheck: true,
+            defaultCapacity: _poolCapasity,
+            maxSize: _poolMaxSize);
     }
 
     public void Spawn(Vector3 position)
@@ -29,5 +38,15 @@ public class Spawner : MonoBehaviour
     {
         enemy.CollidedWithWall -= OnEnemyCollision;
         _pool.Release(enemy);
+    }
+
+    private Enemy Get()
+    {
+        return _pool.Get();
+    }
+
+    private void Release(Enemy obj)
+    {
+        _pool.Release(obj);
     }
 }
