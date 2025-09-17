@@ -7,9 +7,10 @@ public class Spawner : MonoBehaviour
 
     private void Awake()
     {
-        _pool = GetComponent<Pool>();
-        _colorChanger = GetComponent<ColorChanger>();
-
+        if (_pool == null)
+            Debug.LogError($"{nameof(_pool)} не назначен в {gameObject.name}");
+        if (_colorChanger == null)
+            Debug.LogError($"{nameof(_colorChanger)} не назначен в {gameObject.name}");
     }
 
     public void Spawn(Vector3 position)
