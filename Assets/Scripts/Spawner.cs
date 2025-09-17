@@ -22,12 +22,12 @@ public class Spawner : MonoBehaviour
             maxSize: _poolMaxSize);
     }
 
-    public void Spawn(Vector3 position)
+    public void Spawn(Transform transform)
     {
         float rotationAngle = 360f;
 
         Enemy enemy = _pool.Get();
-        enemy.transform.position = position;
+        enemy.transform.position = transform.position;
         enemy.transform.rotation = Quaternion.Euler(0, Random.Range(0, rotationAngle), 0);
         _colorChanger.Change(enemy);
         enemy.gameObject.SetActive(true);
