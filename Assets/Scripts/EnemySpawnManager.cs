@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemySpawnManager : MonoBehaviour
 {
     [SerializeField] private List<Spawner> _spawners = new();
-    [SerializeField] private Pool _pool;
-    [SerializeField] private ColorChanger _colorChanger;
     [SerializeField] private float _spawnInterval = 2f;
     
     private float _timer;
@@ -17,19 +15,10 @@ public class EnemySpawnManager : MonoBehaviour
 
         if (_timer >= _spawnInterval)
         {
-            Enemy enemy = _pool.Get();
-            _colorChanger.Change(enemy);
             Spawner spawner = SpawnerSelection();
-            spawner.Spawn(enemy, spawner.transform.position);
-            enemy.CollidedWithWall += OnCapsuleCollision;
+            spawner.Spawn(spawner.transform.position);
             _timer = 0f;
         }
-    }
-
-    private void OnCapsuleCollision(Enemy enemy)
-    {
-        enemy.CollidedWithWall -= OnCapsuleCollision;
-        _pool.Release(enemy);
     }
 
     private Spawner SpawnerSelection()

@@ -15,7 +15,7 @@ public class Pool : MonoBehaviour
             createFunc: () => Instantiate(_prefab),
             actionOnGet: (obj) => obj.gameObject.SetActive(true),
             actionOnRelease: (obj) => obj.gameObject.SetActive(false),
-            actionOnDestroy: (obj) => Destroy(gameObject),
+            actionOnDestroy: (obj) => Destroy(obj.gameObject),
             collectionCheck: true,
             defaultCapacity: _poolCapasity,
             maxSize: _poolMaxSize);
